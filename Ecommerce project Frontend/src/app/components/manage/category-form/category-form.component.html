@@ -1,0 +1,23 @@
+<div class="flex flex-col px-40 mt-10 items-center">
+    <h1 class="text-4xl font-bold mb-4" [ngSwitch]="isEdit">
+        <span *ngSwitchCase="true">Update Category</span>
+        <span *ngSwitchDefault>Add New Category</span>
+    </h1>
+    <form class="shadow-sm w-96 p-4">
+        <div class="flex flex-wrap">
+            <div class="w-full gap-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="name" name="name">
+                </mat-form-field>
+            </div>
+            <div class="w-full flex justify-center">
+                <div [ngSwitch]="isEdit">
+                    <button mat-raised-button color="primary" (click)="add()" [disabled]="!name"
+                        *ngSwitchDefault>Add</button>
+                    <button *ngSwitchCase="true" mat-raised-button color="primary" (click)="update()">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

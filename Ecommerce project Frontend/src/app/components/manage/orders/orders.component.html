@@ -1,0 +1,71 @@
+<div class="max-w-6xl mx-auto py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">My Orders</h2>
+    <div *ngIf="orders.length > 0; else emptyOrders">
+        <div *ngFor="let order of orders" class="bg-white shadow-md rounded-lg mb-6 p-6 border">
+            <!-- Order Details -->
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h4 class="text-lg font-semibold">Order ID: {{ order._id }}</h4>
+                    <p class="text-sm text-gray-500">Date: {{ order.date | date: 'mediumDate' }}</p>
+                    <p class="text-sm text-gray-500">Address1: {{ order.address.address1}}</p>
+                    <p class="text-sm text-gray-500">Address2: {{ order.address.address2}}</p>
+                    <p class="text-sm text-gray-500">City: {{ order.address.city}}</p>
+                    <p class="text-sm text-gray-500">PinCode: {{ order.address.pincode}}</p>
+                </div>
+                <mat-button-toggle-group [value]="order.status" name="status" aria-label="Font Style"
+                    (change)="statusChanged($event,order)">
+                    <mat-button-toggle class="px-4" value="Dispatched">Dispatched</mat-button-toggle>
+                    <mat-button-toggle class="px-4" value="Shipped">Shipped</mat-button-toggle>
+                    <mat-button-toggle class="px-4" value="Delivered">Delivered</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+
+            <!-- Items List -->
+            <div *ngFor="let item of order.items" class="flex items-center justify-between mb-6 border-b pb-4">
+                <div class="flex items-center">
+                    <img [src]="item.product.images[0]" alt="{{ item.product.name }}"
+                        class="w-20 h-20 object-cover rounded border border-gray-300" />
+                    <div class="ml-4">
+                        <h5 class="text-lg font-semibold">{{ item.product.name }}</h5>
+                        <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
+                        <div class="text-sm">
+                            <span class="text-gray-400 line-through mr-2" *ngIf="item.product.discount > 0">
+                                ${{ item.product.price }}
+                            </span>
+                            <span class="text-green-600 font-bold">
+                                ${{ calculateSellingPrice(item.product.price, item.product.discount) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-lg">
+                        ${{ calculateSellingPrice(item.product.price, item.product.discount) * item.quantity }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Order Total -->
+            <div class="text-right">
+                <p class="text-lg font-bold text-gray-800">
+                    Order Total: ${{ getOrderTotal(order.items) }}
+                </p>
+                <span class="inline-block px-3 py-1 text-sm font-medium bg-blue-100 text-blue-600 rounded-full mt-2">
+                    Payment Method: {{ order.paymentType | titlecase }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty Orders Message -->
+    <ng-template #emptyOrders>
+        <div class="text-center py-12">
+            <h2 class="text-3xl font-bold text-gray-600">You Have No Orders</h2>
+            <p class="mt-4 text-gray-500">Browse our products and place your first order!</p>
+            <button class="mt-6 px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
+                (click)="redirectToShop()">
+                Start Shopping
+            </button>
+        </div>
+    </ng-template>
+</div>

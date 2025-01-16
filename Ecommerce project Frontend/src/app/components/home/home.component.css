@@ -1,0 +1,17 @@
+#brandsCarousel {
+  max-width: 1200px;
+  margin: 50px auto;
+}
+.carousel-inner img {
+  height: 300px;
+  object-fit: contain;
+  background-color: #c5bebe;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  margin: 10px;
+  border-radius: 8px;
+  color: white;
+}

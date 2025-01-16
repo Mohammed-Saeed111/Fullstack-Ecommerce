@@ -1,0 +1,39 @@
+<div class="px-20">
+
+    <div id="brandsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button *ngFor="let product of brandsImages; let i = index" type="button"
+                [attr.data-bs-target]="'#brandsCarousel'" [attr.data-bs-slide-to]="i" [class.active]="i === 0"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div *ngFor="let product of brandsImages; let i = index" class="carousel-item" [class.active]="i === 0">
+                <img [src]="product.images[0]" class="d-block w-100" alt="{{ product.name }}">
+                <div class="carousel-caption text-start">
+                    <h3>{{ product.name }}</h3>
+                    <a [routerLink]="'/products/'+product._id" class="btn btn-primary mt-3">Learn More</a>
+
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#brandsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#brandsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <div class="mt-8">
+        <h4 class="text-4xl font-bold mb-6 text-center">Featured Products</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <app-product-card *ngFor="let product of featuredProducts" [product]="product"></app-product-card>
+        </div>
+    </div>
+    <div class="mt-12 mb-8">
+        <h4 class="text-4xl font-bold mb-6 text-center">New Products</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <app-product-card *ngFor="let product of newProducts" [product]="product"></app-product-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="flex flex-wrap justify-center gap-6 mt-8 p-8 bg-gray-50 rounded-lg shadow-md">
+    <div
+        class="flex flex-col items-center w-64 p-6 bg-blue-500 text-white rounded-lg shadow hover:shadow-lg transition-transform transform hover:-translate-y-2 cursor-pointer">
+        <div class="text-4xl mb-4">
+            <i class="fas fa-list-alt"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Manage Categories</h3>
+        <p class="text-sm opacity-80 mt-2">Create, update, and delete categories.</p>
+        <button mat-raised-button routerLink="/admin/categories"
+            class="mt-4 px-4 py-2 bg-white text-blue-500 font-semibold rounded-lg hover:bg-gray-200 transition-colors">
+            Go to Categories
+        </button>
+    </div>
+    <div
+        class="flex flex-col items-center w-64 p-6 bg-green-500 text-white rounded-lg shadow hover:shadow-lg transition-transform transform hover:-translate-y-2 cursor-pointer">
+        <div class="text-4xl mb-4">
+            <i class="fas fa-box-open"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Manage Products</h3>
+        <p class="text-sm opacity-80 mt-2">Create, update, and manage products.</p>
+        <button mat-raised-button routerLink="/admin/products"
+            class="mt-4 px-4 py-2 bg-white text-green-500 font-semibold rounded-lg hover:bg-gray-200 transition-colors">
+            Go to Products
+        </button>
+    </div>
+    <div
+        class="flex flex-col items-center w-64 p-6 bg-purple-500 text-white rounded-lg shadow hover:shadow-lg transition-transform transform hover:-translate-y-2 cursor-pointer">
+        <div class="text-4xl mb-4">
+            <i class="fas fa-tags"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Manage Brands</h3>
+        <p class="text-sm opacity-80 mt-2">Manage all your product brands.</p>
+        <button mat-raised-button routerLink="/admin/brands"
+            class="mt-4 px-4 py-2 bg-white text-purple-500 font-semibold rounded-lg hover:bg-gray-200 transition-colors">
+            Go to Brands
+        </button>
+    </div>
+    <div
+        class="flex flex-col items-center w-64 p-6 bg-red-500 text-white rounded-lg shadow hover:shadow-lg transition-transform transform hover:-translate-y-2 cursor-pointer">
+        <div class="text-4xl mb-4">
+            <i class="fas fa-tags"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Manage Orders</h3>
+        <p class="text-sm opacity-80 mt-2">Manage all your orders.</p>
+        <button mat-raised-button routerLink="/admin/orders"
+            class="mt-4 px-4 py-2 bg-white text-purple-500 font-semibold rounded-lg hover:bg-gray-200 transition-colors">
+            Go to orders
+        </button>
+    </div>
+</div>

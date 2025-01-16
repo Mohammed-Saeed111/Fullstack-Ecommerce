@@ -1,0 +1,74 @@
+<div class="container mx-auto px-6 py-10">
+    <div *ngIf="product" class="flex flex-col lg:flex-row gap-8">
+        <div class="lg:w-1/2">
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <img [src]="mainImage" alt="{{ product.name }}"
+                    class="rounded-lg w-full max-w-[600px] h-[400px] object-contain mx-auto mb-4" />
+                <div class="grid grid-cols-4 gap-2">
+                    <img *ngFor="let image of product.images" [src]="image" (click)="setMainImage(image)" [ngClass]="{
+                'opacity-100 border-blue-500': mainImage === image,
+                'opacity-50 border-gray-300': mainImage !== image
+              }" alt="Thumbnail"
+                        class="w-16 h-16 object-cover rounded-lg cursor-pointer border hover:opacity-100 hover:border-gray-500 transition-all" />
+                </div>
+            </div>
+        </div>
+        <div class="lg:w-1/2">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-3xl font-semibold mb-4">{{ product.name }}</h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    Price:
+                    <span class="text-green-500 font-bold" *ngIf="product.discount > 0">
+                        ${{ product.price * (1 - product.discount / 100) | number: '1.2-2' }}
+                    </span>
+                    <span *ngIf="product.discount === 0" class="text-green-500 font-bold">
+                        ${{ product.price }}
+                    </span>
+                    <span *ngIf="product.discount > 0" class="line-through text-red-500 ml-2">
+                        ${{ product.price }}
+                    </span>
+                </p>
+                <p class="text-gray-600 mb-6">{{ product.shortDescription }}</p>
+                <div class="flex gap-2">
+                    <button mat-flat-button color="primary" (click)="addToWishlist(product)">
+                        <ng-container [ngSwitch]="isInWishlist(product)">
+                            <div *ngSwitchCase="true" class="flex items-center gap-2">
+                                <mat-icon class="text-red-500">favorite</mat-icon>
+                                <span class="text-sm font-medium text-white">Remove from wishlist</span>
+                            </div>
+
+                            <div *ngSwitchCase="false" class="flex items-center gap-2">
+                                <mat-icon class="text-red-500">favorite_border</mat-icon>
+                                <span class="text-sm font-medium text-white">Add to wishlist</span>
+                            </div>
+
+                        </ng-container>
+                    </button>
+                    <button mat-flat-button color="primary" (click)="addToCart(product)">
+                        <ng-container [ngSwitch]="isProductInCart(product._id!)">
+                            <div *ngSwitchCase="true" class="flex items-center gap-2">
+                                <mat-icon *ngSwitchCase="true">remove_shopping_cart</mat-icon>
+                                <span class="text-sm font-medium text-white">Remove from wishlist</span>
+                            </div>
+
+                            <div *ngSwitchCase="false" class="flex items-center gap-2">
+                                <mat-icon>add_shopping_cart</mat-icon>
+                                <span class="text-sm font-medium text-white">Add to cart</span>
+                            </div>
+
+                        </ng-container>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="similarProducts.length" class="mt-10">
+        <h3 class="text-2xl font-semibold mb-6">Similar Products</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <app-product-card *ngFor="let similarProduct of similarProducts"
+                [product]="similarProduct"></app-product-card>
+        </div>
+    </div>
+</div>

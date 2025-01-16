@@ -1,0 +1,12 @@
+<div class="mt-8 ml-5">
+    <h4 class="text-4xl font-bold mb-6 text-center">Wishlist Products</h4>
+
+    <div *ngIf="wishlistService.wishlist.length > 0; else noItemsTemplate">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <app-product-card *ngFor="let product of wishlistService.wishlist" [product]="product"></app-product-card>
+        </div>
+    </div>
+    <ng-template #noItemsTemplate>
+        <h6 class="text-center text-gray-500 mt-10">No items in wishlist</h6>
+    </ng-template>
+</div>

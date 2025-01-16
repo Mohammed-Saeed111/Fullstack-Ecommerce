@@ -1,0 +1,122 @@
+<div class="max-w-4xl mx-auto py-12">
+    <div *ngIf="CartService.items.length > 0; else emptyCart">
+        <div *ngIf="orderStep === 0; else stepContent">
+            <h2 class="text-3xl font-bold text-center mb-8">Your Shopping Cart</h2>
+            <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+                <div *ngFor="let item of CartService.items" class="flex items-center justify-between p-6 border-b">
+                    <div class="flex items-center space-x-4">
+                        <img [src]="item.product.images[0]" alt="{{ item.product.name }}"
+                            class="w-25 h-25 object-cover rounded" />
+                        <div class="ml-4">
+                            <h2 class="!text-xl font-semibold">{{ item.product.name }}</h2>
+                            <div>
+                                <div class="flex gap-2 items-baseline">
+                                    <span class="!text-lg text-gray-400"><s>{{ item.product.price }}$</s></span>
+                                    <span class="!text-lg text-orange-300">{{ item.product.discount }}$</span>
+                                    <span class="!text-lg text-green-500">{{ sellingPrice(item.product) }}$</span>
+                                </div>
+                                <div>Total Amount: {{ sellingPrice(item.product) * item.quantity }}$</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center">
+                            <span class="mr-4">Quantity:</span>
+                            <span class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer"
+                                (click)="addToCart(item.product._id!, -1)">-</span>
+                            <span class="mx-2">{{ item.quantity }}</span>
+                            <span class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer"
+                                (click)="addToCart(item.product._id!, 1)">+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 p-6 bg-white shadow-sm rounded-lg">
+                <h3 class="text-xl font-bold mb-4">Cart Summary</h3>
+                <p class="text-gray-600 mb-4 text-xl font-bold">Total: {{ totalAmount }}$</p>
+                <button (click)="checkOut()"
+                    class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+        <ng-template #stepContent>
+            <div *ngIf="orderStep === 1; else finalStep">
+                <h2 class="text-3xl font-bold text-center mb-8">Your Order</h2>
+                <div class="bg-white shadow-sm rounded-lg p-6">
+                    <form [formGroup]="addressForm">
+                        <div class="mb-4">
+                            <mat-form-field class="w-full">
+                                <mat-label>Address 1</mat-label>
+                                <input matInput type="text" placeholder="address1" formControlName="address1" />
+                            </mat-form-field>
+                        </div>
+                        <div class="mb-4">
+                            <mat-form-field class="w-full">
+                                <mat-label>Address 2</mat-label>
+                                <input matInput type="text" placeholder="address2" formControlName="address2" />
+                            </mat-form-field>
+                        </div>
+                        <div class="mb-4">
+                            <mat-form-field class="w-full">
+                                <mat-label>City</mat-label>
+                                <input matInput type="text" placeholder="city" formControlName="city" />
+                            </mat-form-field>
+                        </div>
+                        <div class="mb-4">
+                            <mat-form-field class="w-full">
+                                <mat-label>Pincode</mat-label>
+                                <input matInput type="text" placeholder="pincode" formControlName="pincode" />
+                            </mat-form-field>
+                        </div>
+                        <button mat-raised-button color="primary" class="w-full py-2 mt-4" (click)="addAddress()">
+                            Continue
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <ng-template #finalStep>
+                <div>
+                    <div class="max-w-xl mx-auto bg-white shadow-md rounded-lg p-8">
+                        <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">Select Payment Method</h1>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4 border rounded-lg p-4 hover:shadow-md cursor-pointer"
+                                [class.bg-gray-200]="paymentMethod === 'cash'" (click)="paymentMethod = 'cash'">
+                                <input type="radio" id="cash" name="payment" value="cash" [(ngModel)]="paymentMethod"
+                                    class="form-radio text-blue-600 h-5 w-5 focus:ring-blue-500 cursor-pointer">
+                                <label for="cash" class="text-gray-700 text-lg font-medium cursor-pointer">
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-4 border rounded-lg p-4 hover:shadow-md cursor-pointer"
+                                [class.bg-gray-200]="paymentMethod === 'card'" (click)="paymentMethod = 'card'">
+                                <input type="radio" id="card" name="payment" value="card" [(ngModel)]="paymentMethod"
+                                    class="form-radio text-blue-600 h-5 w-5 focus:ring-blue-500 cursor-pointer">
+                                <label for="card" class="text-gray-700 text-lg font-medium cursor-pointer">
+                                    Credit/Debit Card
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button
+                                class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200"
+                                (click)="completeOrder()">
+                                Complete Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div>
+    <ng-template #emptyCart>
+        <div class="text-center py-12">
+            <h2 class="text-3xl font-bold text-gray-600">Your Shopping Cart is Empty</h2>
+            <p class="mt-4 text-gray-500">Looks like you haven’t added anything to your cart yet.</p>
+            <button class="mt-6 px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
+                (click)="redirectToShop()">
+                Start Shopping
+            </button>
+        </div>
+    </ng-template>
+</div>

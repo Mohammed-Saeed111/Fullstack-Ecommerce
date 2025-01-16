@@ -1,0 +1,54 @@
+<div class="flex px-10 py-2">
+    <div class="w-3/12 mr-2">
+        <h5 class="font-bold text-2xl">Filter</h5>
+        <div>
+            <div class="flex flex-col">
+                <div class="w-full p-2 mb-4">
+                    <mat-form-field class="w-full">
+                        <mat-label>Category</mat-label>
+                        <mat-select name="categoryId" [(ngModel)]="categoryId" (valueChange)="getProduct()">
+                            <mat-option *ngFor="let category of categories" [value]="category._id">
+                                {{ category.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="w-full p-2 mb-4">
+                    <mat-form-field class="w-full">
+                        <mat-label>Brands</mat-label>
+                        <mat-select name="brandId" [(ngModel)]="brandId" (valueChange)="getProduct()">
+                            <mat-option *ngFor="let brand of brands" [value]="brand._id">
+                                {{ brand.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-1">
+        <h5 class="font-bold text-2xl mb-2">Products</h5>
+        <mat-form-field class="w-full">
+            <mat-label>Order by</mat-label>
+            <mat-select (valueChange)="orderChange($event)">
+                <mat-option [value]="1">Price Low to High</mat-option>
+                <mat-option [value]="-1">Price High to Low</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="products && products.length > 0; else noProducts"
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+            <app-product-card *ngFor="let product of products" [product]="product"
+                class="h-100 w-full bg-white shadow-md rounded-md flex flex-col justify-between">
+            </app-product-card>
+        </div>
+
+        <ng-template #noProducts>
+            <h6 class="font-bold text-2xl text-center mt-4">No Products Found</h6>
+        </ng-template>
+        <div class="flex mt-2">
+            <button mat-raised-button color="primary" [disabled]="page==1" class="mr-2"
+                (click)="pageChange(page-1)">Previous</button>
+            <button mat-raised-button color="primary" (click)="pageChange(page+1)" [disabled]="!isNext">Next</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<!-- <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Register</h2>
+        <form [formGroup]="registerForm">
+            <div class="mb-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" id="name" name="name" placeholder="Enter your name" required
+                        formControlName="name" />
+                </mat-form-field>
+            </div>
+            <div class=" mb-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" id="email" name="name" placeholder="Enter your email" required
+                        formControlName="email" />
+                </mat-form-field>
+            </div>
+            <div class="mb-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" id="name" name="name" placeholder="Enter password" required
+                        formControlName="password" />
+                </mat-form-field>
+            </div>
+            <div class=" mt-6">
+                <button mat-raised-button color="primary" (click)="register()" [disabled]="registerForm.invalid"
+                    class="w-full py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            formControlName="name"
+          />
+          <mat-error *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+            <span *ngIf="registerForm.get('name')?.hasError('required')">Name is required</span>
+            <span *ngIf="registerForm.get('name')?.hasError('minlength')">Name must be at least 3 characters</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            formControlName="email"
+          />
+          <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            <span *ngIf="registerForm.get('email')?.hasError('required')">Email is required</span>
+            <span *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            formControlName="password"
+          />
+          <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <span *ngIf="registerForm.get('password')?.hasError('required')">Password is required</span>
+            <span *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mt-6">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="registerForm.invalid"
+          class="w-full py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+<div class="bg-blue-500 text-white flex items-center justify-between px-8 py-4">
+    <div class="text-xl font-bold mr-4 cursor-pointer" routerLink="/">MyShop</div>
+    <div class="flex items-center justify-center space-x-6 flex-grow">
+        <nav *ngIf="isLoggedIn" class="flex space-x-4">
+            <a *ngFor="let category of categories" class="cursor-pointer" (click)="searchCategory(category._id!)">
+                {{ category.name }}
+            </a>
+        </nav>
+        <div class="flex flex-grow justify-center items-center">
+            <input *ngIf="isLoggedIn" type="text" placeholder="Search..."
+                class="w-full max-w-lg p-2 rounded bg-white text-black outline-none" (keyup.enter)="onSearch($event)"
+                [(ngModel)]="searchTerm" />
+        </div>
+    </div>
+    <div class="text-lg cursor-pointer">
+        <a class="ml-2" *ngIf="isAdmin" routerLink="/admin">{{userName}}</a>
+        <a class="ml-2" *ngIf="isLoggedIn&&!isAdmin" routerLink="/profile">{{userName}}</a>
+        <a class="ml-2" *ngIf="isLoggedIn&&!isAdmin" routerLink="/wishlist">wishlist</a>
+        <a class="ml-2" *ngIf="isLoggedIn&&!isAdmin" routerLink="/cart"><mat-icon
+                class="pt-1">shopping_cart</mat-icon>cart</a>
+        <a class="ml-2" *ngIf="isLoggedIn&&!isAdmin" routerLink="/orders">orders</a>
+        <a class="ml-2" (click)="logout()" *ngIf="isLoggedIn">logout</a>
+        <a class="ml-2" routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+        <a class="ml-2" routerLink="/register" *ngIf="!isLoggedIn">Register</a>
+    </div>
+</div>
