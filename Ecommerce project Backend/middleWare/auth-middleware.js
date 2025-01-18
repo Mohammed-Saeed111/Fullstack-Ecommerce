@@ -1,11 +1,9 @@
 
 const jwt = require("jsonwebtoken");
 
-// التحقق من التوكن
 function verifyToken(req, res, next) {
   let token = req.header("Authorization");
 
-  // التحقق من وجود التوكن
   if (!token) {
     return res.status(401).json({ error: "Access denied. No token provided." });
   }
