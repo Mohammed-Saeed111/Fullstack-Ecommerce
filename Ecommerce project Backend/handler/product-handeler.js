@@ -48,7 +48,6 @@ async function getProductForListing(
     sortOrder = -1;
   }
   if (searchTerm) {
-    // queryFilter.name = searchTerm;
     queryFilter.$or = [
       { name: { $regex: ".*" + searchTerm + ".*" } },
       { shortDescription: { $regex: ".*" + searchTerm + ".*" } },
