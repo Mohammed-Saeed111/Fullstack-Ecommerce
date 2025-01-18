@@ -26,7 +26,7 @@ export class BrandsComponent implements OnInit {
 
   private getServerData() {
     this.barandService.getBrands().subscribe((data) => {
-      this.category = data; // Store the fetched categories
+      this.category = data; 
       this.dataSource.data = data;
     });
   }
