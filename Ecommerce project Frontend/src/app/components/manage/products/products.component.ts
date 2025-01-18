@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
   }
   private getServerData() {
     this.productservice.getProducts().subscribe((data) => {
-      this.products = data; // Store the fetched categories
+      this.products = data; 
       this.dataSource.data = data;
       console.log(this.products);
     });
