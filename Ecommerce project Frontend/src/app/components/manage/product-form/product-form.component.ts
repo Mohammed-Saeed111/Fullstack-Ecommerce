@@ -43,9 +43,8 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addImage(); // Add one empty image field by default.
+    this.addImage(); 
 
-    // Load categories and brands.
     this.categoryService.getCategories().subscribe((result) => {
       this.categories = result;
     });
@@ -53,7 +52,6 @@ export class ProductFormComponent implements OnInit {
       this.brands = result;
     });
 
-    // Check for edit mode.
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
       this.productService
@@ -149,7 +147,6 @@ export class ProductFormComponent implements OnInit {
 
     const formData = new FormData();
 
-    // Ensure isFeatured and isNew are set to false if they are unchecked
     const formValues = {
       ...this.productForm.value,
       isFeatured: this.productForm.get('isFeatured')?.value || false,
