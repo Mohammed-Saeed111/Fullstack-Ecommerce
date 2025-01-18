@@ -23,7 +23,7 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(6)]], 
   });
 
-  // دالة للتعامل مع عملية التسجيل
+  
   register() {
     if (this.registerForm.valid) {
       let value = this.registerForm.value;
