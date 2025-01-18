@@ -28,7 +28,7 @@ export class CategoriesComponent implements OnInit {
 
   private getServerData() {
     this.categoryService.getCategories().subscribe((data) => {
-      this.category = data; // Store the fetched categories
+      this.category = data; 
       this.dataSource.data = data;
     });
   }
